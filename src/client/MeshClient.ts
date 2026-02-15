@@ -9,7 +9,7 @@ export class MeshClient {
   #peer: Peer | null = null
   #wsUrl: string
   onReady: ((id: string) => void) | null = null
-  onPeersChange: ((peers: Record<string, DataConnection>) => void) | null = null
+  onPeersChange: ((peers: string[]) => void) | null = null
   onStateChange: ((state: MeshState) => void) | null = null
 
   constructor(wsUrl: string) {
@@ -53,7 +53,6 @@ export class MeshClient {
   }
 
   #handleSignal(msg: MeshMessage) {
-    console.log('msg:', msg)
     switch (msg.type) {
       case 'peers':
         msg.payload.forEach((remoteId) => this.#connectToPeer(remoteId))
@@ -75,7 +74,7 @@ export class MeshClient {
 
   #setupConnection(conn: DataConnection, remoteId: string) {
     this.#peers[remoteId] = conn
-    this.onPeersChange?.(this.#peers)
+    this.onPeersChange?.(Object.keys(this.#peers))
 
     conn.on('open', () => {
       if (!this.#myId || Object.keys(this.#globalState).length === 0) return
@@ -99,7 +98,7 @@ export class MeshClient {
     if (this.#peers[remoteId]) {
       this.#peers[remoteId].close()
       delete this.#peers[remoteId]
-      this.onPeersChange?.(this.#peers)
+      this.onPeersChange?.(Object.keys(this.#peers))
     }
   }
 
