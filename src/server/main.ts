@@ -1,10 +1,9 @@
 import { Elysia, t } from 'elysia'
+import { type MeshMessage } from '../types/mesh'
 
 // Store active peers (PeerJS ID -> WebSocket)
 // We mostly just need the set of IDs for the 'peers' list.
 const activePeers = new Set<string>()
-
-import { type MeshMessage } from '../types/shared'
 
 class Peer {
   constructor(public id: string) {}
