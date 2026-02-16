@@ -89,7 +89,7 @@ export class MeshClient {
       this.#cleanupPeer(remoteId)
     })
 
-    conn.on('error', (err) => {
+    conn.on('error', () => {
       this.#cleanupPeer(remoteId)
     })
   }
