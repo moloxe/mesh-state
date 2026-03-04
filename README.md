@@ -10,11 +10,13 @@ Real-time JSON state synchronization using Full Mesh WebRTC (PeerJS) & ElysiaJS 
 ## Setup & Run
 
 1.  **Install Dependencies**:
+
     ```bash
     bun install --production
     ```
 
 2.  **Start Server**:
+
     ```bash
     bun run start
     ```
@@ -31,3 +33,14 @@ Real-time JSON state synchronization using Full Mesh WebRTC (PeerJS) & ElysiaJS 
 ## Peer Dependencies
 
 - `peerjs` (client-only)
+
+# Deploy on GCP/CE
+
+1. `curl -fsSL https://bun.sh/install | bash`
+2. `source ~/.bashrc`
+3. `git clone https://github.com/moloxe/mesh-state`
+4. `cd mesh-state`
+5. `bun install`
+6. `sudo PORT=80 nohup /home/francomolocheg99/.bun/bin/bun index.ts > /dev/null 2>&1 &`
+
+Check: `sudo ss -ltn | grep :80`
